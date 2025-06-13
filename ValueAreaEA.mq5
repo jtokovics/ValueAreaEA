@@ -25,6 +25,13 @@ input double          RiskPerTrade      = 1.0;
 input int             MaxOpenTrades     = 3;
 input bool            LogTrade          = true;
 
+//=== TEMP INPUTS === (in progress)
+input double BinSize = 0.01; // Size of each bin for Value Area calculation
+
+input int RequiredBarsToEnter = 2; // Number of bars required to enter a trade
+input ENUM_TIMEFRAMES EnterTimeframe = PERIOD_M30; // Timeframe for entry signals
+
+
 const string Desc = "ValueAreaEA (" + IntegerToString(Magic) + ")";
 
 // === VARIABLES ===
@@ -50,6 +57,22 @@ int OnInit()
     //test log here
     TradeLog(100.0, -50.0, 50.0, LogTrade);
 
+    // test value area calculation
+    Bin bins[];
+   datetime dayStart = iTime(_Symbol, PERIOD_D1, 1);
+   datetime dayEnd   = iTime(_Symbol, PERIOD_D1, 0);
+
+   if(CreateVolumeProfileBin(dayStart, dayEnd, BinSize, bins))
+      {
+      double vah, val, poc;
+      if(CalculateValueArea(bins, 80, vah, val, poc))
+      //if(false)
+         {
+            DrawValueAreaLines(vah, val, poc);
+            Print("VAL: ", val, "  VAH: ", vah, "  POC: ", poc);
+         }
+      }
+
     return(INIT_SUCCEEDED);
   }
 //+------------------------------------------------------------------+
@@ -60,6 +83,9 @@ void OnDeinit(const int reason)
     Log("ValueAreaEA deinitialized with Magic Number: " + IntegerToString(Magic));
     // Delete GUI elements
     DeleteGui();
+
+    // Remove Value Area lines from the chart
+    RemoveValueAreaLines();
   }
 //+------------------------------------------------------------------+
 //| Expert tick function                                             |
