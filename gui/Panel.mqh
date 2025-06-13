@@ -27,6 +27,7 @@ const string   L00Name      = "LINE00";
 const string   L01Name      = "LINE01";
 const string   L02Name      = "LINE02";
 const string   L03Name      = "LINE03";
+const string   L04Name      = "LINE04";
 
 //Position
 const int      NulXPos      = 200;              
@@ -78,7 +79,7 @@ void CreatePanel()
     ObjectSetInteger(0, L00Name, OBJPROP_COLOR, PnlClr);
     ObjectSetString(0, L00Name, OBJPROP_TEXT, _Symbol); 
 
-    //Expert Name
+   
     ObjectDelete(0, L01Name);
     ObjectCreate(0, L01Name, OBJ_LABEL, 0, 0, 0);
     ObjectSetInteger(0,L01Name,OBJPROP_CORNER,CORNER_RIGHT_UPPER);
@@ -88,8 +89,8 @@ void CreatePanel()
     ObjectSetInteger(0, L01Name, OBJPROP_FONTSIZE, FontSize);
     ObjectSetInteger(0, L01Name, OBJPROP_COLOR, PnlClr);
     ObjectSetString(0, L01Name, OBJPROP_TEXT, "-");
-            
-    //Time
+    
+    //Expert Name        
     ObjectDelete(0,L02Name);
     ObjectCreate(0,L02Name,OBJ_LABEL,0,0,0);
     ObjectSetInteger(0,L02Name,OBJPROP_CORNER,CORNER_RIGHT_UPPER);
@@ -110,6 +111,17 @@ void CreatePanel()
     ObjectSetInteger(0, L03Name, OBJPROP_FONTSIZE, FontSize);
     ObjectSetInteger(0, L03Name, OBJPROP_COLOR, PnlClr);
     ObjectSetString(0, L03Name, OBJPROP_TEXT, "-");
+
+    //Session
+    ObjectDelete(0,L04Name);
+    ObjectCreate(0,L04Name,OBJ_LABEL,0,0,0);
+    ObjectSetInteger(0,L04Name,OBJPROP_CORNER,CORNER_RIGHT_UPPER);
+    ObjectSetInteger(0,L04Name,OBJPROP_XDISTANCE,NulXPos);
+    ObjectSetInteger(0,L04Name,OBJPROP_YDISTANCE,NulYPos + 15 *SpaceYPos);
+    ObjectSetString(0, L04Name, OBJPROP_FONT, Font);
+    ObjectSetInteger(0, L04Name, OBJPROP_FONTSIZE, FontSize);
+    ObjectSetInteger(0, L04Name, OBJPROP_COLOR, PnlClr);
+    ObjectSetString(0, L04Name, OBJPROP_TEXT, "Session:");
    }
 
 void CreateGui()
@@ -128,12 +140,12 @@ void DeleteGui()
 
 void SetExpertName(string name)
    {
-    ObjectSetString(0, L01Name, OBJPROP_TEXT, name);
+    ObjectSetString(0, L02Name, OBJPROP_TEXT, name);
    }
 
 void SetTime(string time)
    {
-    ObjectSetString(0, L02Name, OBJPROP_TEXT, time);
+    ObjectSetString(0, L01Name, OBJPROP_TEXT, time);
    }
 
 void SetTrend(string trend)

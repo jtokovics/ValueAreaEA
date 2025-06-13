@@ -57,7 +57,9 @@ int OnInit()
 //+------------------------------------------------------------------+
 void OnDeinit(const int reason)
   {
-   DeleteGui();
+    Log("ValueAreaEA deinitialized with Magic Number: " + IntegerToString(Magic));
+    // Delete GUI elements
+    DeleteGui();
   }
 //+------------------------------------------------------------------+
 //| Expert tick function                                             |
@@ -66,11 +68,15 @@ void OnTick()
   {
     //set the current bar time by min tf
     datetime mainTFBarDate = iTime(NULL, ValueAreaPeriod, 0);
+
     //run if new candle appear in the main time frame
     if(mainTFBarDate != lastActionTime)
       {
         lastActionTime = mainTFBarDate;
       }
+
+    // Update the GUI with the current time
+    SetTime(TimeToString(TimeCurrent(), TIME_SECONDS));
   }
 //+------------------------------------------------------------------+
 //| ChartEvent function                                              |

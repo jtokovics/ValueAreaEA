@@ -1,6 +1,4 @@
 *.ex5
 *.mqh~
 *.mq5~
-*.log
-logs/
 presets/
