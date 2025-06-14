@@ -162,3 +162,30 @@ void RemoveValueAreaLines()
         ObjectDelete(0, chartID + "VAL");
         ObjectDelete(0, chartID + "POC");
     }
+
+bool ValueAreaProcess(ENUM_TIMEFRAMES vATf, double binSize, int percent)
+    {
+        Bin bins[];
+        datetime startTime = iTime(_Symbol, vATf, 1);
+        datetime endTime   = iTime(_Symbol, vATf, 0);
+        if(CreateVolumeProfileBin(startTime, endTime, binSize, bins))
+        {
+            double vah, val, poc;
+            if(CalculateValueArea(bins, percent, vah, val, poc))
+                {
+                    DrawValueAreaLines(vah, val, poc);
+                    Print("VAL: ", val, "  VAH: ", vah, "  POC: ", poc);
+                }
+            else
+                {
+                    return false;
+                }
+        }
+        else
+        {
+            return false;
+        }
+
+        return true;
+    }
+
